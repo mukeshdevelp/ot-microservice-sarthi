@@ -1,0 +1,46 @@
+# inserted by mukesh
+server:
+  port: 8082
+spring:
+  cassandra:
+    keyspace-name: employee
+    contact-points: 10.0.1.25
+    port: 9042
+    username: scylla
+    password: 12345
+    local-datacenter: datacenter1
+  data:
+    redis:
+      host: 10.0.1.25
+      port: 6379
+      password: 12345
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: [ "health","prometheus", "metrics" ]
+  health:
+    cassandra:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+
+springdoc:
+  swagger-ui:
+    path: /salary-documentation
+    tryItOutEnabled: true
+    filter: true
+  api-docs:
+    path: /salary-api-docs
+  show-actuator: true

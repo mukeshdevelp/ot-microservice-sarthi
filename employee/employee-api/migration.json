@@ -1,0 +1,3 @@
+{
+  "database": "cassandra://10.0.1.25:9042/employee?username=scylla&password=12345"
+}

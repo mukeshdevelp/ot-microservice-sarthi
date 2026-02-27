@@ -1,0 +1,16 @@
+---
+smtp:
+  from: "msmukeshksharma85@gmail.com"
+  username: "msmukeshkumarsharma95@gmail.com"
+  password: "mppk trke wgce qaei"
+  smtp_server: "smtp.gmail.com"
+  smtp_port: "587"
+
+elasticsearch:
+  # currently i am not using any username and password so they are empty
+  username: ""
+  password: ""
+  host: "10.0.1.25"
+  port: 9200
+  # generally es uses https, if we want to give it data we have to use http
+  scheme: "http"
