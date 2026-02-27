@@ -788,3 +788,53 @@ cat frontend/src/ListSalary.js
 cat frontend/src/AttendanceForm.js 
 
 cat frontend/src/EmployeeData.js 
+ls
+cd frontend/
+ls
+vi .gitignore
+cat node_modules/
+cat .gitignor
+cat .gitignore 
+ls -alh
+rm -rf .git
+ls -alh
+git init
+rm -rf .git
+ls
+cd ..
+ls
+ls -alhr
+git init
+git add README.md
+git add .
+git commit -m "first commit"
+git config --global user.email "msmukeshkumarsharma95@gmail.com"
+git config --global user.name "mukeshdevelp"
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:mukeshdevelp/ot-microservice-sarthi.git
+git push -u origin main
+git remote add origin https://github.com/mukeshdevelp/ot-microservice-sarthi.git
+git push -u origin main
+git push
+git push --set-upstream origin main
+git remote add origin https://github.com/mukeshdevelp/ot-microservice-sarthi.git
+git branch -M main
+git push -u origin main
+ls
+git log
+git remote add origin https://github.com/mukeshdevelp/ot-microservice-sarthi.git
+git push -u origin main
+git remote -v
+git remote set-url origin https://github.com/mukeshdevelp/ot-microservice-sarthi.git
+git push -u origin main
+ls
+ls -alhr
+git fetch
+ls 
+git log
+git checkout -b  fronend
+git add .
+git commit -m "frontedn repo"
+git push
+git push --set-upstream origin fronend
