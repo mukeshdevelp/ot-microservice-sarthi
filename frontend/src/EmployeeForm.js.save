@@ -1,0 +1,163 @@
+import React from "react";
+import { Page, Grid } from "tabler-react";
+import SiteWrapper from "./SiteWrapper.react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { withFormik } from "formik";
+
+const EmployeeForm = ({ values, handleChange, handleSubmit, isSubmitting }) => (
+  <SiteWrapper>
+    <Page.Card title="Employee Registration" />
+
+    <Grid.Col md={6} lg={6} className="align-self-center">
+      <Form onSubmit={handleSubmit}>
+
+        <FormGroup>
+          <Label>Employee ID</Label>
+          <Input name="id" value={values.id} onChange={handleChange} required />
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Name</Label>
+          <Input name="name" value={values.name} onChange={handleChange} required />
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Email</Label>
+          <Input type="email" name="email" value={values.email} onChange={handleChange} required />
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Phone Number</Label>
+          <Input name="phone_number" value={values.phone_number} onChange={handleChange} required />
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Address</Label>
+          <Input name="address" value={values.address} onChange={handleChange} required />
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Department</Label>
+          <Input type="select" name="department" value={values.department} onChange={handleChange} required>
+            <option value="">Select</option>
+            <option value="Engineering">Engineering</option>
+            <option value="HR">HR</option>
+            <option value="Finance">Finance</option>
+            <option value="Operations">Operations</option>
+          </Input>
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Designation</Label>
+          <Input type="select" name="designation" value={values.designation} onChange={handleChange} required>
+            <option value="">Select</option>
+            <option value="Developer">Developer</option>
+            <option value="DevOps Consultant">DevOps Consultant</option>
+            <option value="Manager">Manager</option>
+          </Input>
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Office Location</Label>
+          <Input type="select" name="office_location" value={values.office_location} onChange={handleChange} required>
+            <option value="">Select</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Noida">Noida</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Bangalore">Bangalore</option>
+          </Input>
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Joining Date</Label>
+          <Input type="date" name="joining_date" value={values.joining_date} onChange={handleChange} required />
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Status</Label>
+          <Input type="select" name="status" value={values.status} onChange={handleChange} required>
+            <option value="ACTIVE">ACTIVE</option>
+            <option value="INACTIVE">INACTIVE</option>
+          </Input>
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Salary (Annual)</Label>
+          <Input type="number" name="salary" value={values.salary} onChange={handleChange} required />
+        </FormGroup>
+
+        <Button color="primary" disabled={isSubmitting}>
+          Submit
+        </Button>
+
+      </Form>
+    </Grid.Col>
+  </SiteWrapper>
+);
+
+/* ================= FORM LOGIC ================= */
+
+export default withFormik({
+  mapPropsToValues() {
+    return {
+      id: "",
+      name: "",
+      email: "",
+      phone_number: "",
+      address: "",
+      department: "",
+      designation: "",
+      office_location: "",
+      joining_date: "",
+      salary: ""
+    };
+  },
+
+  async handleSubmit(values, { resetForm, setSubmitting }) {
+    try {
+      /* EMPLOYEE SERVICE */
+      const empRes = await fetch("http://10.0.1.25:8080/api/v1/salary/create/record", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: values.id,
+          name: values.name,
+          email: values.email,
+          phone_number: values.phone_number,
+          address: values.address,
+          department: values.department,
+          designation: values.designation,
+          office_location: values.office_location,
+          joining_date: values.joining_date,
+          status: values.status
+        })
+      });
+
+      if (!empRes.ok) throw new Error("Employee API failed");
+
+      /* SALARY SERVICE */
+      const salRes = await fetch("http://10.0.1.25:8080/salary/api/v1/salary/create/record", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: values.id,
+          name: values.name,
+          salary: Number(values.salary),
+          status: values.status,
+          process_date: new Date().toISOString().split("T")[0]
+        })
+      });
+
+      if (!salRes.ok) throw new Error("Salary API failed");
+
+      alert("✅ Employee & Salary created successfully");
+      resetForm();
+
+    } catch (error) {
+      console.error(error);
+      alert("❌ Failed to create employee or salary record");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+})(EmployeeForm);
