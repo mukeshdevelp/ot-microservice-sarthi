@@ -42,9 +42,4 @@
 #     path: /salary-api-docs
 #   show-actuator: true
 
-# disabled for unit testing - author - mukesh
-spring:
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration
-      - org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration
+
